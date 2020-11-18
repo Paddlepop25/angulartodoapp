@@ -1,54 +1,68 @@
 <div class="container">
-  <h1 class="title">To Do Form</h1>
+  <div class="row">
+    <div class="col">
+      <h1 class="title">To Do Form</h1>
+      <!-- where is this form from? -->
+      <form [formGroup]="form" (ngSubmit)="todoForm()">
+        <div class="form-group">
+          <label for="description"> Description &nbsp;</label>
+          <input
+            type="text"
+            id="description"
+            formControlName="description"
+            placeholder="e.g Buy milk"
+          />
+          <div
+            *ngIf="form.get('description').hasError('required')"
+            class="text-danger"
+          >
+            Please input a description
+          </div>
+        </div>
 
-  <!-- where is this form from? -->
-  <form [formGroup]="form" (ngSubmit)="todoForm()">
-    <div class="form-group">
-      <label for="description"> Description &nbsp;</label>
-      <input
-        type="text"
-        id="description"
-        formControlName="description"
-        placeholder="e.g Buy milk"
-      />
-      <div
-        *ngIf="form.get('description').hasError('required')"
-        class="text-danger"
-      >
-        Please input a description
+        <div class="form-group">
+          <label>
+            Priority:
+            <!-- where is the formControlName taking from? -->
+            <input type="radio" value="high" formControlName="priority" />High
+            <input
+              type="radio"
+              value="medium"
+              formControlName="priority"
+            />Medium
+            <input type="radio" value="low" formControlName="priority" />Low
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label for="due"> Due &nbsp;</label>
+          <input type="date" id="due" formControlName="due" />
+          <!-- <div *ngIf="form.get('due').hasError('required')"></div> -->
+          <div
+            *ngIf="form.get('due').hasError('taskDueDateValidator')"
+            class="text-danger"
+          >
+            Please choose a future date.
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-success" [disabled]="form.invalid">
+          Add
+        </button>
+      </form>
+    </div>
+
+    <div class="col">
+      <h1 class="title">Task</h1>
+      <div *ngFor="let task of taskAddedByUser">
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title">{{ task.description }}</h3>
+            <p class="card-text">{{ task.priority }}</p>
+            <p>{{ task.due }}</p>
+          </div>
+        </div>
       </div>
     </div>
-
-    <div class="form-group">
-      <label>
-        Priority:
-        <!-- where is the formControlName taking from? -->
-        <input type="radio" value="high" formControlName="priority" />High
-        <input type="radio" value="medium" formControlName="priority" />Medium
-        <input type="radio" value="low" formControlName="priority" />Low
-      </label>
-    </div>
-
-    <div class="form-group">
-      <label for="due"> Due &nbsp;</label>
-      <input
-        type="text"
-        id="due"
-        formControlName="due"
-        placeholder="e.g 16th April 2020"
-      />
-      <div *ngIf="form.get('due').hasError('required')" class="text-danger">
-        Please input a date &nbsp;
-      </div>
-    </div>
-
-    <button
-      type="submit"
-      class="btn btn-success"
-      [disabled]="form.invalid"
-      (click)="addTask($event)"
-    >
-      Add
-    </button>
-  </form>
+  </div>
 </div>
