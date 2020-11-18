@@ -2,7 +2,7 @@
   <h1 class="title">To Do Form</h1>
 
   <!-- where is this form from? -->
-  <form [formGroup]="form" (ngSubmit)="processForm()">
+  <form [formGroup]="form" (ngSubmit)="todoForm()">
     <div class="form-group">
       <label for="description"> Description &nbsp;</label>
       <input
@@ -42,7 +42,12 @@
       </div>
     </div>
 
-    <button type="submit" class="btn btn-success" [disabled]="form.invalid">
+    <button
+      type="submit"
+      class="btn btn-success"
+      [disabled]="form.invalid"
+      (click)="addTask($event)"
+    >
       Add
     </button>
   </form>

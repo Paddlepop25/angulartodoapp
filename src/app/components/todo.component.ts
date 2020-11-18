@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { ToDo } from '../models/todo';
 
@@ -22,8 +22,8 @@ export class TodoComponent implements OnInit {
     });
    }
 
-   // what is this processForm?
-   processForm(){
+   // what is this todoForm?
+   todoForm(){
     console.log(this.form.value);
     let todo = new ToDo(
       this.form.value.description,
@@ -35,5 +35,13 @@ export class TodoComponent implements OnInit {
     }
     ngOnInit(): void {
   }
+
+  // which object emitting? this.form.value or todo?
+  @Output() addToTask = new EventEmitter<object>();
+
+  addTask($event) {
+    this.addToTask.next()
+  }
+
 
 }
