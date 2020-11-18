@@ -8,7 +8,7 @@ import { TodoComponent } from './components/todo.component';
 @NgModule({
   declarations: [
     AppComponent,
-    TodoComponent
+    TodoComponent,
   ],
   imports: [
     BrowserModule,
